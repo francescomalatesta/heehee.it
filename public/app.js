@@ -8,12 +8,23 @@
     thriller: { min: 60,  max: 120 },
   };
   const FLOOR = { cols: 14, rows: 7 };
+
+  // Modalità OBS: heehee.it/?obs=1 (anche #obs). Sfondo trasparente, solo la parola,
+  // avvio automatico. Parametri facoltativi: mode=smooth|bad|thriller
+  // oppure min e max in secondi (es. ?obs=1&min=30&max=90).
+  const params = new URLSearchParams(location.search);
+  const OBS = params.has("obs") || location.hash === "#obs";
+  const custom = (() => {
+    const min = Number(params.get("min")), max = Number(params.get("max"));
+    return min >= 1 && max >= min ? { min, max } : null;
+  })();
+  if (OBS) document.documentElement.classList.add("obs");
   const TITLE = document.title;
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const $ = (id) => document.getElementById(id);
   const el = {
-    start: $("start"), intro: $("intro"), status: $("status"), word: $("word"),
+    start: $("start"), intro: $("intro"), obsHint: $("obs-hint"), status: $("status"), word: $("word"),
     fedora: $("fedora"), floor: $("floor"), count: $("count"), volume: $("volume"),
     now: $("now"), pause: $("pause"), modes: $("modes"), canvas: $("sparkles"),
   };
@@ -33,7 +44,7 @@
   const today = new Date().toISOString().slice(0, 10);
 
   const state = {
-    mode: MODES[store.get("mode")] ? store.get("mode") : "smooth",
+    mode: [OBS && params.get("mode"), store.get("mode"), "smooth"].find((m) => MODES[m]),
     volume: store.get("volume", 0.8),
     count: (() => { const c = store.get("count", null); return c && c.day === today ? c.n : 0; })(),
     started: false,
@@ -103,7 +114,7 @@
   function schedule() {
     clearTimeout(state.timer);
     if (!state.started || state.paused) return;
-    const { min, max } = MODES[state.mode];
+    const { min, max } = custom || MODES[state.mode];
     const delay = (min + Math.random() * (max - min)) * 1000;
     state.timer = setTimeout(() => { play(); schedule(); }, delay);
   }
@@ -117,7 +128,8 @@
       gain = ctx.createGain();
       gain.gain.value = state.volume;
       gain.connect(ctx.destination);
-      await ctx.resume();
+      // resume() resta in attesa finché il browser non concede l'audio: non blocchiamo
+      await Promise.race([ctx.resume(), new Promise((r) => setTimeout(r, 1000))]);
       await loadClips();
     } catch (err) {
       console.error(err);
@@ -134,7 +146,15 @@
     el.status.hidden = false;
     el.pause.disabled = false;
     updateStatus();
-    play(); // il primo subito, così sai che l'audio funziona
+    if (OBS) {
+      // Se OBS non concede l'autoplay, basta un clic sulla sorgente (tasto destro → Interagisci)
+      if (ctx.state !== "running") {
+        el.obsHint.hidden = false;
+        addEventListener("pointerdown", () => { ctx.resume(); el.obsHint.hidden = true; }, { once: true });
+      }
+    } else {
+      play(); // il primo subito, così sai che l'audio funziona
+    }
     schedule();
   }
 
@@ -192,7 +212,7 @@
 
     state.count += 1;
     el.count.textContent = state.count;
-    store.set("count", { day: today, n: state.count });
+    if (!OBS) store.set("count", { day: today, n: state.count });
 
     document.title = clip.label + " 🕺";
     clearTimeout(titleTimer);
@@ -321,4 +341,6 @@
     e.preventDefault();
     playNow();
   });
+
+  if (OBS) start();
 })();

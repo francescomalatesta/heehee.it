@@ -324,3 +324,26 @@ body.shake .app { animation: shake .45s cubic-bezier(.36, .07, .19, .97); }
   .word.pop { animation: fade 1.9s linear forwards; }
   @keyframes fade { 0%, 80% { opacity: 1; } 100% { opacity: 0; } }
 }
+
+/* ---------- modalità OBS (?obs=1): solo la parola, sfondo trasparente ---------- */
+html.obs, html.obs body { background: transparent; }
+html.obs .top, html.obs .intro, html.obs .status, html.obs .beam, html.obs .fedora,
+html.obs .floor-wrap, html.obs .controls { display: none; }
+html.obs .word {
+  position: fixed;
+  filter: drop-shadow(0 0 14px rgba(0, 0, 0, 0.6));
+}
+.obs-hint {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 10px 16px;
+  font: 500 0.8rem/1 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  background: var(--stage);
+  border: 1px solid var(--red);
+}

@@ -9,7 +9,11 @@ Michael si fa sentire con un verso a caso. Tutto client side, nessun backend.
 public/                 web root (è l'unica cartella da servire)
   index.html
   style.css
-  app.js                logica: audio, timer casuale, animazioni
+  app.js                logica: audio, timer casuale, animazioni, modalità OBS
+  favicon.svg / .ico    favicon (fedora)
+  site.webmanifest      icone per "aggiungi alla schermata Home"
+  robots.txt
+  img/                  og.png (anteprima per i link), icone PNG
   sounds/
     manifest.json       elenco dei file mp3 (generato)
     *.mp3
@@ -55,6 +59,22 @@ I download grezzi finiscono in `tools/.cache/` (ignorata da git).
 | Thriller        | ogni 1–2 minuti               | AVRAI AURA?               |
 
 Scorciatoia: **spazio** fa partire subito un verso.
+
+## Modalità OBS
+
+Per gli streamer: aggiungi in OBS una **Sorgente browser** con questo URL:
+
+```
+https://heehee.it/?obs=1
+```
+
+- Sfondo trasparente: si vede solo la scritta del verso, con i brillantini.
+- Parte da sola, senza pulsanti; il primo verso arriva dopo il primo intervallo.
+- Frequenza: `&mode=smooth`, `&mode=bad` o `&mode=thriller` (predefinita: smooth),
+  oppure un intervallo su misura in secondi, per esempio `&min=30&max=90`.
+- Dimensioni consigliate: 1920×1080. Spunta **"Controlla l'audio tramite OBS"**
+  per avere il volume nel mixer di OBS.
+- Se l'audio non parte, compare un avviso: tasto destro sulla sorgente → **Interagisci** e un clic.
 
 ## Deploy su Forge
 
