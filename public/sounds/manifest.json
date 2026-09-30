@@ -1,44 +1,9 @@
 [
-  {
-    "id": "hee-hee-01",
-    "file": "sounds/hee-hee-01.wav",
-    "label": "HEE-HEE!",
-    "weight": 3
-  },
-  {
-    "id": "hee-01",
-    "file": "sounds/hee-01.wav",
-    "label": "HEE!",
-    "weight": 2
-  },
-  {
-    "id": "ow-01",
-    "file": "sounds/ow-01.wav",
-    "label": "OW!",
-    "weight": 2
-  },
-  {
-    "id": "aaow-01",
-    "file": "sounds/aaow-01.wav",
-    "label": "AAOW!",
-    "weight": 1
-  },
-  {
-    "id": "shamone-01",
-    "file": "sounds/shamone-01.wav",
-    "label": "SHAMONE!",
-    "weight": 1
-  },
-  {
-    "id": "dah-01",
-    "file": "sounds/dah-01.wav",
-    "label": "DAH!",
-    "weight": 1
-  },
-  {
-    "id": "hoo-01",
-    "file": "sounds/hoo-01.wav",
-    "label": "HOO!",
-    "weight": 1
-  }
+  "ahahahahwoo.mp3",
+  "aoow.mp3",
+  "heehee.mp3",
+  "rrahdabadab.mp3",
+  "shakachaka.mp3",
+  "shamone.mp3",
+  "yeahyeah.mp3"
 ]

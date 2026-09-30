@@ -1,3 +1,4 @@
-url,start,end,name,label,weight
-# Una riga per verso. start/end nel formato hh:mm:ss.cc. weight = quanto spesso esce (1 = normale).
-# https://www.youtube.com/watch?v=XXXXXXXXXXX,00:01:23.40,00:01:24.60,hee-hee-01,HEE-HEE!,3
+url,start,end,name
+# Una riga per verso. start/end nel formato hh:mm:ss.cc.
+# Il nome del file decide il testo a schermo: hee-hee → HEE-HEE!, annie_are_you_ok → ANNIE ARE YOU OK!
+# https://www.youtube.com/watch?v=XXXXXXXXXXX,00:01:23.40,00:01:24.60,hee-hee

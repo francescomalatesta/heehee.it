@@ -47,23 +47,38 @@
   let bag = [];
   let last = null;
 
+  // Il testo a schermo viene dal nome del file:
+  //   heehee.mp3           → HEEHEE!
+  //   hee-hee.mp3          → HEE-HEE!
+  //   annie_are_you_ok.mp3 → ANNIE ARE YOU OK!
+  // Un numero finale (shamone-2.mp3) serve solo a distinguere le varianti e non compare.
+  function labelFromFile(file) {
+    const text = file
+      .replace(/\.[^.]+$/, "")
+      .replace(/[-_ ]?\d+$/, "")
+      .replace(/_/g, " ")
+      .trim()
+      .toUpperCase();
+    return /[!?]$/.test(text) ? text : text + "!";
+  }
+
   async function loadClips() {
-    const list = await fetch("sounds/manifest.json").then((r) => r.json());
-    const loaded = await Promise.allSettled(list.map(async (clip) => {
-      const data = await fetch(clip.file).then((r) => {
-        if (!r.ok) throw new Error(clip.file + ": " + r.status);
+    const files = await fetch("sounds/manifest.json").then((r) => r.json());
+    const loaded = await Promise.allSettled(files.map(async (file) => {
+      const data = await fetch("sounds/" + encodeURIComponent(file)).then((r) => {
+        if (!r.ok) throw new Error(file + ": " + r.status);
         return r.arrayBuffer();
       });
-      return { ...clip, buffer: await ctx.decodeAudioData(data) };
+      return { file, label: labelFromFile(file), buffer: await ctx.decodeAudioData(data) };
     }));
     clips = loaded.filter((r) => r.status === "fulfilled").map((r) => r.value);
   }
 
-  // "Sacchetto": ogni clip compare `weight` volte, si pesca tutto prima di rimescolare,
+  // "Sacchetto": si pescano tutti i versi prima di rimescolare,
   // e mai lo stesso verso due volte di fila.
   function nextClip() {
     if (!bag.length) {
-      bag = clips.flatMap((c) => Array(c.weight || 1).fill(c));
+      bag = [...clips];
       for (let i = bag.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [bag[i], bag[j]] = [bag[j], bag[i]];
@@ -150,9 +165,25 @@
     node.classList.add(cls);
   }
 
+  // Rimpicciolisce il testo solo se la parola più lunga non entra nello schermo
+  function fitWord(label) {
+    el.word.style.fontSize = "";
+    const longest = label.split(" ").reduce((a, b) => (b.length > a.length ? b : a));
+    const probe = document.createElement("span");
+    probe.textContent = longest;
+    probe.style.cssText = "position:absolute;visibility:hidden;white-space:nowrap";
+    el.word.appendChild(probe);
+    const style = getComputedStyle(el.word);
+    const room = (el.word.clientWidth - 2 * parseFloat(style.paddingLeft)) * 0.95;
+    const width = probe.offsetWidth;
+    probe.remove();
+    if (width > room) el.word.style.fontSize = parseFloat(style.fontSize) * room / width + "px";
+  }
+
   let titleTimer;
   function react(clip) {
     el.word.textContent = clip.label;
+    fitWord(clip.label);
     restart(el.word, "pop");
     restart(el.fedora, "tip");
     if (!reducedMotion) restart(document.body, "shake");

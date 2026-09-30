@@ -11,10 +11,10 @@ public/                 web root (è l'unica cartella da servire)
   style.css
   app.js                logica: audio, timer casuale, animazioni
   sounds/
-    manifest.json       elenco dei versi (id, file, label, weight)
-    *.wav / *.mp3
+    manifest.json       elenco dei file mp3 (generato)
+    *.mp3
 tools/
-  make-placeholders.py  genera versi segnaposto sintetici (solo stdlib)
+  update-manifest.py    rigenera manifest.json dagli mp3 presenti
   clips.csv             elenco dei versi veri: url YouTube, inizio, fine, nome
   build-clips.sh        scarica e ritaglia i versi veri (yt-dlp + ffmpeg)
 ```
@@ -30,10 +30,21 @@ Serve un server HTTP: aprendo `index.html` come file il browser blocca il carica
 
 ## Versi
 
-- **Segnaposto:** `python3 tools/make-placeholders.py`
-- **Versi veri:** compila `tools/clips.csv` e lancia `./tools/build-clips.sh`.
-  Lo script normalizza il volume ed esporta mp3 mono in `public/sounds/`,
-  poi rigenera `manifest.json`. I download grezzi finiscono in `tools/.cache/` (ignorata da git).
+1. Metti gli mp3 in `public/sounds/`.
+2. Lancia `python3 tools/update-manifest.py` per aggiornare l'elenco.
+
+Il **nome del file** decide il testo mostrato a schermo, in maiuscolo e con il punto esclamativo:
+
+| File                   | Testo               |
+| ---------------------- | ------------------- |
+| `heehee.mp3`           | HEEHEE!             |
+| `hee-hee.mp3`          | HEE-HEE!            |
+| `annie_are_you_ok.mp3` | ANNIE ARE YOU OK!   |
+| `shamone-2.mp3`        | SHAMONE! (il numero finale serve per le varianti e non compare) |
+
+In alternativa puoi elencare i versi in `tools/clips.csv` e lanciare `./tools/build-clips.sh`:
+scarica da YouTube, ritaglia, normalizza il volume, esporta gli mp3 e aggiorna l'elenco.
+I download grezzi finiscono in `tools/.cache/` (ignorata da git).
 
 ## Frequenze
 

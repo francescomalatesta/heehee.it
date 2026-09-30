@@ -117,6 +117,7 @@ body {
   padding-inline: var(--gutter);
   font-family: var(--display);
   font-size: clamp(4.2rem, 19vw, 15rem);
+  text-wrap: balance;
   line-height: 0.9;
   letter-spacing: 0.01em;
   color: var(--ink);
