@@ -39,7 +39,7 @@ Serve un server HTTP: aprendo `index.html` come file il browser blocca il carica
 
 | Modalità        | Intervallo      |
 | --------------- | --------------- |
-| Smooth Criminal | ogni 2–5 minuti |
+| Smooth Criminal | ogni 2–5 minuti (predefinita) |
 | Bad             | ogni 30–90 s    |
 | Thriller        | ogni 3–10 s     |
 

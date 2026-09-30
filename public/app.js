@@ -33,7 +33,7 @@
   const today = new Date().toISOString().slice(0, 10);
 
   const state = {
-    mode: MODES[store.get("mode")] ? store.get("mode") : "bad",
+    mode: MODES[store.get("mode")] ? store.get("mode") : "smooth",
     volume: store.get("volume", 0.8),
     count: (() => { const c = store.get("count", null); return c && c.day === today ? c.n : 0; })(),
     started: false,
