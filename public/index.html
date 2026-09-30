@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>heehee.it</title>
+<meta name="description" content="Apri la pagina, premi il pulsante e torna a fare altro. Prima o poi Michael si farà sentire.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Chivo:wght@400;600&family=Chivo+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="logo">heehee<span>.it</span></div>
+    <div class="counter" title="Versi ascoltati oggi">
+      <span class="counter-label">Versi oggi</span>
+      <span class="counter-value" id="count">0</span>
+    </div>
+  </header>
+
+  <main class="stage" id="stage">
+    <div class="beam" aria-hidden="true"></div>
+    <svg class="fedora" id="fedora" viewBox="0 0 240 124" aria-hidden="true">
+      <path class="crown" d="M60 90 C 57 60, 63 30, 85 19 C 99 13, 108 22, 120 22 C 132 22, 141 13, 155 19 C 177 30, 183 60, 180 90 Z"/>
+      <path class="band" d="M59 68 C 92 61, 148 61, 181 68 L 181 80 C 148 73, 92 73, 59 80 Z"/>
+      <path class="brim" d="M8 94 C 30 76, 78 72, 120 72 C 162 72, 212 76, 232 90 C 216 108, 170 113, 120 111 C 70 111, 22 109, 8 94 Z"/>
+    </svg>
+    <div class="word" id="word" aria-live="polite"></div>
+
+    <div class="intro" id="intro">
+      <h1>Michael è nascosto in questa pagina.</h1>
+      <p>Premi il pulsante, lascia la scheda aperta e torna a fare altro. Prima o poi si farà sentire.</p>
+      <button class="start" id="start" type="button">Sono pronto</button>
+    </div>
+    <p class="status" id="status" hidden></p>
+  </main>
+
+  <div class="floor-wrap" aria-hidden="true"><div class="floor" id="floor"></div></div>
+
+  <footer class="controls">
+    <fieldset class="modes" id="modes">
+      <legend>Frequenza</legend>
+      <label><input type="radio" name="mode" id="mode-smooth" value="smooth"><span>Smooth Criminal<small>ogni 2–5 min</small></span></label>
+      <label><input type="radio" name="mode" id="mode-bad" value="bad"><span>Bad<small>ogni 30–90 s</small></span></label>
+      <label><input type="radio" name="mode" id="mode-thriller" value="thriller"><span>Thriller<small>ogni 3–10 s</small></span></label>
+    </fieldset>
+    <div class="actions">
+      <label class="volume" for="volume">Volume <input type="range" id="volume" min="0" max="1" step="0.01"></label>
+      <button type="button" id="now" class="ghost">Adesso! <kbd>spazio</kbd></button>
+      <button type="button" id="pause" class="ghost" disabled>Pausa</button>
+    </div>
+    <p class="fine">Sito parodistico non ufficiale. I versi attuali sono segnaposto sintetici.</p>
+  </footer>
+</div>
+<canvas class="sparkles" id="sparkles" aria-hidden="true"></canvas>
+<script src="app.js"></script>
+</body>
+</html>
