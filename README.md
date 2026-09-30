@@ -60,11 +60,20 @@ Scorciatoia: **spazio** fa partire subito un verso.
 
 1. Nuovo sito, dominio `heehee.it`, progetto di tipo *Static HTML*.
 2. Collega questo repository e imposta la **web directory** su `/public`.
-3. Lo script di deploy basta così:
+3. Script di deploy:
    ```sh
+   set -e
    cd $FORGE_SITE_PATH
-   git pull origin $FORGE_SITE_BRANCH
+
+   # Allinea il sito al branch, scartando eventuali modifiche locali
+   git fetch origin $FORGE_SITE_BRANCH
+   git reset --hard FETCH_HEAD
+
+   # Rigenera l'elenco dei versi dagli mp3 presenti
+   python3 tools/update-manifest.py
    ```
+   Il deploy rigenera `manifest.json`: gli mp3 caricati direttamente su GitHub
+   finiscono online anche se nessuno ha aggiornato l'elenco.
 4. Attiva SSL con Let's Encrypt e *Quick Deploy*.
 
 Per un ambiente di prova, crea un secondo sito (es. `dev.heehee.it`) sul branch di sviluppo.
