@@ -52,7 +52,7 @@ I download grezzi finiscono in `tools/.cache/` (ignorata da git).
 | --------------- | ----------------------------- | ------------------------- |
 | Smooth Criminal | ogni 5–10 minuti (predefinita) | Per starsene nel chill    |
 | Bad             | ogni 2–5 minuti               | La giusta dose di Jackson |
-| Thriller        | ogni 1–2 minuti               | Avrai aura?               |
+| Thriller        | ogni 1–2 minuti               | AVRAI AURA?               |
 
 Scorciatoia: **spazio** fa partire subito un verso.
 
