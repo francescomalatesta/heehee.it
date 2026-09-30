@@ -3,9 +3,9 @@
 
   // Intervalli tra un verso e l'altro, in secondi
   const MODES = {
-    smooth:   { min: 120, max: 300 },
-    bad:      { min: 30,  max: 90 },
-    thriller: { min: 3,   max: 10 },
+    smooth:   { min: 300, max: 600 },
+    bad:      { min: 120, max: 300 },
+    thriller: { min: 60,  max: 120 },
   };
   const FLOOR = { cols: 14, rows: 7 };
   const TITLE = document.title;

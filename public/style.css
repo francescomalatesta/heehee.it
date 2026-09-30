@@ -250,18 +250,26 @@ body {
 .modes input { position: absolute; opacity: 0; pointer-events: none; }
 .modes span {
   display: grid;
-  gap: 2px;
-  padding: 9px 14px;
+  gap: 4px;
+  padding: 10px 14px;
+  text-align: left;
   border: 1px solid var(--line);
   font-weight: 600;
   font-size: 0.9rem;
   line-height: 1.1;
   transition: background-color .15s, color .15s, border-color .15s;
 }
-.modes small { font: 400 0.68rem/1.2 var(--mono); color: var(--muted); }
+.modes b { font-weight: 600; }
+.modes i {
+  font: 400 0.68rem/1 var(--mono);
+  font-style: normal;
+  color: var(--muted);
+  margin-left: 4px;
+}
+.modes small { font-weight: 400; font-size: 0.78rem; line-height: 1.25; color: var(--muted); }
 .modes label:hover span { border-color: var(--silver); }
 .modes input:checked + span { background: var(--ink); color: var(--stage); border-color: var(--ink); }
-.modes input:checked + span small { color: var(--stage); opacity: .7; }
+.modes input:checked + span :is(small, i) { color: var(--stage); opacity: .7; }
 .modes input:focus-visible + span { outline: 2px solid var(--red); outline-offset: 2px; }
 
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }

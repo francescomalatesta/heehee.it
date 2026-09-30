@@ -48,11 +48,11 @@ I download grezzi finiscono in `tools/.cache/` (ignorata da git).
 
 ## Frequenze
 
-| Modalità        | Intervallo      |
-| --------------- | --------------- |
-| Smooth Criminal | ogni 2–5 minuti (predefinita) |
-| Bad             | ogni 30–90 s    |
-| Thriller        | ogni 3–10 s     |
+| Modalità        | Intervallo                    | Sottotitolo               |
+| --------------- | ----------------------------- | ------------------------- |
+| Smooth Criminal | ogni 5–10 minuti (predefinita) | Per starsene nel chill    |
+| Bad             | ogni 2–5 minuti               | La giusta dose di Jackson |
+| Thriller        | ogni 1–2 minuti               | Avrai aura?               |
 
 Scorciatoia: **spazio** fa partire subito un verso.
 
